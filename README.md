@@ -35,7 +35,6 @@ Perfectly Placed Personnel is a web app that Revature managers can use to look a
 
 
 If you have all 3 prerequisites installed you can now cloned the repository.
-https://github.com/947-Caroline-Nordt-Training-Planner/backend.git
 
 1. Choose the folder you would like to install the project to. 
 2. In the Git Bash terminal type `git clone https://github.com/947-Caroline-Nordt-Training-Planner/backend.git`
