@@ -15,13 +15,11 @@ Perfectly Placed Personnel is a web app that Revature managers can use to look a
 *  Spring Framework Cloud - version 3.0.2
 *  Eureka - version 1.10.11
 *  Spring Cloud Gateway Server - version 3.0.2
-*  Mockito - 3.2.4
+*  Mockito - version 3.2.4
 *  JUnit4
 *  PostgreSQL
 
 ## Features
-
-List of features ready and TODOs for future development
 * Create Read Update and Delete a trainer(s).
 * Create Read Update and Delete a skill(s).
 * Create Read Update and Delete a curriculum(s).
