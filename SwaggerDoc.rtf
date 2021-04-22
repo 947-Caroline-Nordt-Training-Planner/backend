@@ -1,0 +1,969 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2578
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww11520\viewh6500\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 swagger: '2.0'\
+info:\
+  description: This is a simple API for the Trainer Planner\
+  version: 1.0.0\
+  title: Trainer Planner API\
+\
+# tags are used for organizing operations\
+tags:\
+- name: batch\
+  description: calls for the batch elements\
+- name: curricula\
+  description: calls for the curriculum elements\
+- name: skill\
+  description: calls for the skill elements\
+- name: trainer\
+  description: calls for the trainer elements\
+- name: client\
+  description: calls for the client elements\
+- name: client demand\
+  description: calls for the client demand elements\
+\
+paths:\
+# Batch paths below\
+  /batch/create_batch:\
+    post:\
+      tags:\
+        [batch]\
+      summary: adds a batch\
+      description: Adds a batch to the database\
+      consumes:\
+      - application/json\
+      produces:\
+      - application/json\
+      parameters:\
+      - in: body\
+        name: Batch\
+        description: the batch to add\
+        schema:\
+          $ref: '#/definitions/Batch'\
+      responses:\
+        201:\
+          description: item created\
+        400:\
+          description: invalid input, object invalid\
+        409:\
+          description: an existing item already exists\
+    \
+  /batch/get_batches:\
+    get:\
+      tags:\
+        [batch]\
+      summary: gets all batches\
+      operationId: allBatches\
+      description: |\
+        This returns a list of all batches currently in the database\
+      produces:\
+      - application/json\
+      responses:\
+        200:\
+          description: get all existing Batches\
+          schema:\
+            type: array\
+            items:\
+              $ref: '#/definitions/Batch'\
+        400:\
+          description: bad input parameter\
+  /batch/remove_batch/\{id\}:\
+    delete:\
+      tags:\
+        [batch]\
+      summary: deletes a batch\
+      operationId: deleteBatch\
+      description: |\
+        By passing in a valid id you can delete that batch associated with it\
+      produces:\
+      - application/json\
+      parameters:\
+      - in: path\
+        name: id\
+        description: the id of the batch to be deleted\
+        required: true\
+        type: integer\
+      responses:\
+        200:\
+          description: The batch was deleted\
+          schema:\
+            type: string\
+        400:\
+          description: no batch with id found\
+  /batch/update_batch:\
+    put:\
+      tags:\
+        [batch]\
+      summary: updates a batch\
+      operationId: updateBatch\
+      description: |\
+        By passing in a valid id you can update the batch associated with it\
+      produces:\
+      - application/json\
+      parameters:\
+      - in: body\
+        name: Batch\
+        description: The batch with updated information\
+        schema:\
+          $ref: '#/definitions/Batch'\
+      responses:\
+        200:\
+          description: The batch was updated\
+          schema:\
+            type: array\
+            items:\
+              $ref: '#/definitions/Batch'\
+        400:\
+          description: no valid batch\
+  /batch/get_batch_by_id/\{id\}:\
+    get:\
+      tags:\
+        [batch]\
+      summary: gets a batch by id\
+      operationId: getBatchById\
+      description: |\
+        By passing in a valid id you can get the batch associated with it\
+      produces:\
+      - application/json\
+      parameters:\
+      - in: path\
+        required: true\
+        name: id\
+        type: integer\
+        description: id of batch wanted\
+      responses:\
+        200:\
+          description: The batch was grabbed\
+          schema:\
+            type: object\
+            items:\
+              $ref: '#/definitions/Batch'\
+        400:\
+          description: no valid batch matching id\
+  /batch/get_batch_by_curriculum/\{id\}:\
+    get:\
+      tags:\
+        [batch]\
+      summary: gets a list of batches by curriculum\
+      operationId: getBatchByCurriculum\
+      description: |\
+        By passing in a valid curriculum id you can grab a list of associated batches\
+      produces:\
+      - application/json\
+      parameters:\
+      - in: path\
+        required: true\
+        name: id\
+        type: integer\
+        description: id of curriculum\
+      responses:\
+        200:\
+          description: The batches were grabbed\
+          schema:\
+            type: array\
+            items:\
+              $ref: '#/definitions/Batch'\
+        400:\
+          description: no valid curriculum matching id\
+\
+# Curricula paths below\
+  /curricula/create:\
+    post:\
+      tags:\
+        [curricula]\
+      summary: Creates a new curriculum.\
+      operationId: createCurriculum\
+      description: Adds a batch to the database.\
+      consumes:\
+      - application/json\
+      produces:\
+      - application/json\
+      parameters:\
+      - in: body\
+        name: curriculum\
+        description: Curriculum to add\
+        schema:\
+          $ref: '#/definitions/Curriculum'\
+      responses:\
+        201:\
+          description: Curriculum created.\
+        400:\
+          description: Invalid input, curriculum invalid.\
+        409:\
+          description: An existing curriculum already exists.\
+          \
+  /curricula/all:\
+    get:\
+      tags:\
+        [curricula]\
+      summary: Gets all curricula.\
+      operationId: getAllCurricula\
+      description: This returns a list of all curricula currently in the database.\
+      produces:\
+      - application/json\
+      responses:\
+        200:\
+          description: Search results matching criteria.\
+          schema:\
+            type: array\
+            items:\
+              $ref: '#/definitions/Curriculum'\
+        400:\
+          description: Bad input parameter.\
+            \
+  /curricula/\{id\}:\
+    delete:\
+      tags:\
+        [curricula]\
+      summary: Deletes a curriculum.\
+      operationId: deleteCurriculum\
+      description: By passing in a valid ID, you can delete that curriculum associated with it.\
+      produces:\
+      - application/json\
+      parameters:\
+      - in: path\
+        name: id\
+        description: The ID of the curriculum to be deleted.\
+        required: true\
+        type: integer\
+      responses:\
+        200:\
+          description: The curriculum was deleted.\
+          schema:\
+            type: array\
+            items:\
+              $ref: '#/definitions/Curriculum'\
+        400:\
+          description: No curriculum with ID was found.\
+    get:\
+      tags:\
+        [curricula]\
+      summary: Gets a curriculum.\
+      operationId: getCurriculumById\
+      description: By passing in a valid ID, you can get the curriculum associated with it.\
+      produces:\
+      - application/json\
+      parameters:\
+      - in: path\
+        name: id\
+        description: The ID of the curriculum wanted.\
+        required: true\
+        type: integer\
+      responses:\
+        200:\
+          description: The curriculum was grabbed.\
+          schema:\
+            type: array\
+            items:\
+              $ref: '#/definitions/Curriculum'\
+        400:\
+          description: No valid curriculum matching ID.\
+          \
+  /curricula/update:\
+    put:\
+      tags:\
+        [curricula]\
+      summary: Updates an existing curriculum.\
+      operationId: updateCurriculum\
+      description: By passing in a valid ID, you can update the curriculum associated with it.\
+      produces:\
+      - application/json\
+      parameters:\
+      - in: body\
+        name: curriculum\
+        description: Curriculum to update.\
+        schema:\
+          $ref: '#/definitions/Curriculum'\
+      responses:\
+        200:\
+          description: The curriculum was updated.\
+          schema:\
+            type: array\
+            items:\
+              $ref: '#/definitions/Curriculum'\
+        400:\
+          description: No valid curriculum.\
+\
+# Skill paths below\
+  /skill/create_skill:\
+    post:\
+      tags:\
+        [skill]\
+      summary: creates a new skill\
+      operationId: create_skill\
+      description: Adds a skill to the database\
+      consumes:\
+        - application/json\
+      produces:\
+        - application/json\
+      parameters:\
+      - in: body\
+        name: skill\
+        description: Skill to add\
+        schema:\
+          $ref: '#/definitions/Skill'\
+      responses:\
+        201:\
+          description: Skill created\
+          schema:\
+            $ref: '#/definitions/Skill'\
+        404:\
+          description: Client not found\
+ \
+  /skill/allskills:\
+    get:\
+      tags:\
+          [skill]\
+      summary: retrieves all skills\
+      operationId: getAllSkills\
+      description: returns a list of all skills in the database\
+      produces:\
+      - application/json\
+      responses:\
+        200:\
+          description: search results matching criteria\
+          schema:\
+              type: array\
+              items:\
+                $ref: '#/definitions/Skill'\
+        400:\
+          description: bad input parameter\
+ \
+  /skill/skillname/\{skillName\}:\
+    get:\
+      tags:\
+        [skill]\
+      summary: gets skill by skill name\
+      operationId: getSkillByName\
+      description: |\
+        By passing in a valid skill name you can retrieve a skill\
+      produces:\
+      - application/json\
+      parameters:\
+      - in: path\
+        required: true\
+        name: skillName\
+        type: string\
+        description: name of skill\
+      responses:\
+        200:\
+          description: The skill was grabbed\
+          schema:\
+            type: string\
+            items:\
+              $ref: '#/definitions/Skill'\
+        404:\
+          description: no valid skill matching skillName\
+ \
+  /skill/skillid/\{skillId\}:\
+    get:\
+      tags:\
+        [skill]\
+      summary: gets skill by skill id\
+      operationId: getSkillById\
+      description: |\
+        By passing in a valid skill id you can retrieve a skill\
+      produces:\
+      - application/json\
+      parameters:\
+      - in: path\
+        required: true\
+        name: skillId\
+        type: integer\
+        description: id of skill\
+      responses:\
+        200:\
+          description: The skill was grabbed\
+          schema:\
+            type: string\
+            items:\
+              $ref: '#/definitions/Skill'\
+        404:\
+          description: no valid skill matching skillId\
+  /skill/delete_skill:\
+    delete:\
+      tags:\
+        [skill]\
+      summary: deletes a skill from the database\
+      operationId: deleteSkill\
+      description: delete a skill from the database\
+      consumes:\
+        - application/json\
+      produces:\
+        - application/json\
+      \
+      responses:\
+        200:\
+          description: The skill was deleted\
+          schema:\
+            type: string\
+            items:\
+              $ref: '#/definitions/Skill'\
+        400:\
+          description: no skill found\
+  \
+  /skill/update_skill:\
+    post:\
+      tags:\
+        [skill]\
+      summary: updates an already existing skill\
+      operationId: update_skill\
+      description: Updates a skill in the database\
+      consumes:\
+        - application/json\
+      produces:\
+        - application/json\
+      parameters:\
+      - in: body\
+        name: skill\
+        description: Skill to update\
+        schema:\
+          $ref: '#/definitions/Skill'\
+      responses:\
+        200:\
+          description: skill updated\
+          schema:\
+            $ref: '#/definitions/Skill'\
+        404:\
+          description: Client not found\
+# Trainer paths below\
+  /trainer/create_trainer:\
+    post:\
+      tags:\
+        [trainer]\
+      summary: creates a new trainer\
+      operationId: createTrainer\
+      description: Adds a new trainer to the database\
+      consumes:\
+        - application/json\
+      produces:\
+        - application/json\
+      parameters:\
+      - in: body\
+        name: trainer\
+        description: Trainer to add\
+        schema:\
+            $ref: '#/definitions/Trainer'\
+      responses:\
+        201:\
+          description: Trainer created\
+          schema:\
+            $ref: '#/definitions/Trainer'\
+        404:\
+          description: Client not found\
+  /trainer/all_trainers:\
+    get:\
+      tags:\
+          [trainer]\
+      summary: retrieves all trainers\
+      operationId: getAllTrainers\
+      description: returns a list of all trainers in the database\
+      produces:\
+      - application/json\
+      responses:\
+        200:\
+          description: search results matching criteria\
+          schema:\
+              type: array\
+              items:\
+                $ref: '#/definitions/Trainer'\
+        400:\
+          description: bad input parameter\
+  /trainer/delete_trainer:\
+    delete:\
+      tags:\
+        [trainer]\
+      summary: deletes a trainer from the database\
+      operationId: deleteTrainer\
+      description: delete a trainer from the database\
+      consumes:\
+        - application/json\
+      produces:\
+        - application/json\
+      responses:\
+        200:\
+          description: The trainer was deleted\
+          schema:\
+            type: string\
+            items:\
+              $ref: '#/definitions/Trainer'\
+        400:\
+          description: no trainer found\
+  /trainer/update_trainer:\
+    post:\
+        tags:\
+          [trainer]\
+        summary: updates an already existing trainer\
+        operationId: update_trainer\
+        description: Updates a trainer in the database\
+        consumes:\
+          - application/json\
+        produces:\
+          - application/json\
+        parameters:\
+        - in: body\
+          name: trainer\
+          description: Trainer to update\
+          schema:\
+            $ref: '#/definitions/Trainer'\
+        responses:\
+          200:\
+            description: trainer updated\
+            schema:\
+              $ref: '#/definitions/Trainer'\
+          404:\
+            description: Client not found\
+  /trainer/firstname/\{trainerFirst\}:\
+    get:\
+      tags:\
+        [trainer]\
+      summary: gets trainer by trainer's first name\
+      operationId: getTrainerByFirstName\
+      produces:\
+      - application/json\
+      parameters:\
+      - in: path\
+        required: true\
+        name: trainerFirst\
+        type: string\
+        description: trainer's first name\
+      responses:\
+        200:\
+          description: The trainer(s) were grabbed\
+          schema:\
+            type: array\
+            items:\
+              $ref: '#/definitions/Trainer'\
+        404:\
+          description: no valid trainer matching this first name\
+  /trainer/lastname/\{trainerLast\}:\
+    get:\
+      tags:\
+        [trainer]\
+      summary: gets trainer by trainer's last name\
+      operationId: getTrainerByLastName\
+      produces:\
+      - application/json\
+      parameters:\
+      - in: path\
+        required: true\
+        name: trainerLast\
+        type: string\
+        description: trainer's last name\
+      responses:\
+        200:\
+          description: The trainer(s) were grabbed\
+          schema:\
+            type: array\
+            items:\
+              $ref: '#/definitions/Trainer'\
+        404:\
+          description: no valid trainer matching this last name\
+  /trainer/email:\
+    get:\
+      tags:\
+        [trainer]\
+      summary: gets trainer by trainer's email address\
+      operationId: getTrainerByEmail\
+      produces:\
+      - application/json\
+      \
+      responses:\
+        200:\
+          description: The trainer was grabbed\
+          schema:\
+            type: string\
+            items:\
+              $ref: '#/definitions/Trainer'\
+        404:\
+          description: no valid trainer matching this email address\
+  /trainer/id:\
+    get:\
+      tags:\
+        [trainer]\
+      summary: gets trainer by trainer's id\
+      operationId: getTrainerById\
+      produces:\
+      - application/json\
+\
+      responses:\
+        200:\
+          description: The trainer was grabbed\
+          schema:\
+            type: string\
+            items:\
+              $ref: '#/definitions/Trainer'\
+        404:\
+          description: no valid trainer matching this id\
+        \
+#Client paths\
+  /client/add:\
+    post:\
+      tags:\
+        - client\
+      summary: adds client\
+      \
+      consumes:\
+      - application/json\
+      produces:\
+      - application/json\
+      parameters:\
+      - in: body\
+        name: Client\
+        description: Client to add\
+        schema:\
+          $ref: '#/definitions/Client'\
+      responses:\
+        201:\
+          description: client added\
+        409:\
+          description: client already exists by name\
+  /client/\{clientName\}:\
+    get:\
+      tags:\
+        - client\
+      summary: Search for client by name\
+      produces:\
+      - application/json\
+      parameters:\
+      - in: path\
+        name: clientName\
+        description: pass in the clients name\
+        required: true\
+        type: string\
+      responses:\
+        200:\
+          description: Client\
+          schema:\
+            $ref: '#/definitions/Client'\
+        404:\
+          description: Client not found\
+  /client/clients:\
+    get:\
+      tags:\
+        - client\
+      summary: returns all current clients\
+      produces:\
+      - application/json\
+      responses:\
+        200:\
+          description: search results matching criteria\
+          schema:\
+            type: array\
+            items:\
+              $ref: '#/definitions/Client'\
+#Client Demand paths\
+  /demand:\
+    post:\
+      tags:\
+        - client demand\
+      summary: adds demand for client\
+      consumes:\
+      - application/json\
+      produces:\
+      - application/json\
+      parameters:\
+      - in: body\
+        name: clientDemand\
+        description: clientDemand to add\
+        schema:\
+          $ref: '#/definitions/ClientDemand'\
+      responses:\
+        201:\
+          description: demand added for the client\
+        400:\
+          description: invalid input, check client\
+  /demand/id/\{demandId\}:\
+    get:\
+      tags:\
+        - client demand\
+      summary: Search for demand by demand id and client name\
+      produces:\
+      - application/json\
+      parameters:\
+      - in: path\
+        name: demandId\
+        description: pass in the demand id\
+        required: true\
+        type: integer\
+      responses:\
+        200:\
+          description: Demand for client\
+          schema:\
+            $ref: '#/definitions/ClientDemand'\
+        404:\
+          description: Demand not found\
+  /demands/client/\{clientId\}:\
+    get:\
+      tags:\
+        - client demand\
+      summary: Search for all demands by client id\
+      produces:\
+      - application/json\
+      parameters:\
+      - in: path\
+        name: clientId\
+        description: pass in the clients id\
+        required: true\
+        type: integer\
+      responses:\
+        200:\
+          description: Demands for client\
+          schema:\
+            type: array\
+            items:\
+              $ref: '#/definitions/ClientDemand'\
+        404:\
+          description: Client not found\
+  /demands/curriculum/\{currId\}:\
+    get:\
+      tags:\
+        - client demand\
+      summary: Search for all demands by curriculum\
+      produces:\
+      - application/json\
+      parameters:\
+      - in: path\
+        name: currId\
+        description: pass in the curriculum id\
+        required: true\
+        type: integer\
+      responses:\
+        200:\
+          description: Demands for curriculum\
+          schema:\
+            type: array\
+            items:\
+              $ref: '#/definitions/ClientDemand'\
+        404:\
+          description: curriculum not found\
+  /demands/curriculum/\{currId\}/\{startDate\}/\{endDate\}:\
+    get:\
+      tags:\
+        - client demand\
+      summary: Search for all demands by curriculum between given days\
+      produces:\
+      - application/json\
+      parameters:\
+      - in: path\
+        name: currId\
+        description: pass in the curriculum id\
+        required: true\
+        type: integer\
+      - in: path\
+        name: startDate\
+        description: pass in first date in local date form\
+        required: true\
+        type: string\
+        format: LocalDate\
+      - in: path\
+        name: endDate\
+        description: pass in second date in local date form\
+        required: true\
+        type: string\
+        format: LocalDate\
+      responses:\
+        200:\
+          description: Demands for curriculum\
+          schema:\
+            type: array\
+            items:\
+              $ref: '#/definitions/ClientDemand'\
+        404:\
+          description: curriculum not found\
+  /demands/\{startDate\}/\{endDate\}:\
+    get:\
+      tags:\
+        - client demand\
+      summary: Search for all demands between given days\
+      produces:\
+      - application/json\
+      parameters:\
+      - in: path\
+        name: startDate\
+        description: pass in first date in local date form\
+        required: true\
+        type: string\
+        format: LocalDate\
+      - in: path\
+        name: endDate\
+        description: pass in second date in local date form\
+        required: true\
+        type: string\
+        format: LocalDate\
+      responses:\
+        200:\
+          description: Demands for curriculum\
+          schema:\
+            type: array\
+            items:\
+              $ref: '#/definitions/ClientDemand'\
+  /demands:\
+    get:\
+      tags:\
+        - client demand\
+      summary: returns all demands\
+      produces:\
+      - application/json\
+      responses:\
+        200:\
+          description: search results matching criteria\
+          schema:\
+            type: array\
+            items:\
+              $ref: '#/definitions/ClientDemand'\
+\
+# Below are the Model Definitions\
+definitions:\
+  Batch:\
+    type: object\
+    required:\
+    - name\
+    - startDate\
+    - endDate\
+    - curriculum\
+    - trainer\
+    - associates\
+    \
+    properties:\
+      name:\
+        type: string\
+        format: name\
+        example: java\
+      startDate:\
+        type: string\
+        format: date-time\
+        example: 2016-08-29T09:12:33.001Z\
+      endDate:\
+        type: string\
+        format: date-time\
+        example: 2016-08-29T09:12:33.001Z\
+      curriculum:\
+        $ref: '#/definitions/Curriculum'\
+      trainer: \
+        $ref: '#/definitions/Trainer'\
+      associates:\
+        type: integer\
+        format: int\
+        example: 22\
+  Curriculum:\
+    type: object\
+    required:\
+    - name\
+    - startDate\
+    - endDate\
+    - curriculum\
+    - trainer\
+    - associates\
+    \
+    properties:\
+      name:\
+        type: string\
+        format: name\
+        example: java\
+      startDate:\
+        type: string\
+        format: date-time\
+        example: 2016-08-29T09:12:33.001Z\
+      endDate:\
+        type: string\
+        format: date-time\
+        example: 2016-08-29T09:12:33.001Z\
+      curriculum:\
+        $ref: '#/definitions/Curriculum'\
+      trainer: \
+        $ref: '#/definitions/Trainer'\
+      associates:\
+        type: integer\
+        format: int\
+        example: 22\
+  Trainer:\
+  # completed (LR 4/14/21)\
+    type: object\
+    required:\
+    - trainerId\
+    - trainerFirst\
+    - trainerLast\
+    - email\
+    properties:\
+      trainerId:\
+        type: integer\
+        format: int64\
+        example: 1\
+      trainerFirst:\
+        type: string\
+        example: John\
+      trainerLast:\
+        type: string\
+        example: Smith\
+      email:\
+        type: string\
+        example: test@email.com\
+      batchList:\
+        type: array\
+        items:\
+          $ref: '#/definitions/Batch'\
+  Skill:\
+    # completed (LR 4/14/21)\
+    type: object\
+    required:\
+    - skillId\
+    - skillName\
+    - currList\
+    \
+    properties:\
+      skillId:\
+        type: integer\
+        example: 1\
+      skillName:\
+        type: string\
+        example: JavaScript\
+      currList:\
+        $ref: '#/definitions/Curriculum'\
+  ClientDemand:\
+    required: \
+    - client\
+    type: object\
+    properties:\
+      id:\
+        type: integer\
+        format: int64\
+        example: 1\
+      neededBy:\
+        type: string\
+        format: LocalDate\
+        example: "2017-05-14"\
+      quantityDemanded:\
+        type: integer\
+        format: int64\
+        example: 50\
+      client:\
+        $ref: '#/definitions/Client'\
+      curriculum:\
+          type: integer\
+  Client:\
+    required: \
+    - name\
+    type: object\
+    properties:\
+      id:\
+        type: integer\
+        format: int64\
+        example: 0\
+      name:\
+        type: string\
+        example: ACME Corporation\
+      clientDemand:\
+        type: array\
+        items:\
+          $ref: '#/definitions/ClientDemand'\
+\
+# Added by API Auto Mocking Plugin\
+host: virtserver.swaggerhub.com\
+basePath: /Caroline-0947/Training-Planner/1.0.0\
+schemes:\
+ - https}
