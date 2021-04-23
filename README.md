@@ -1,4 +1,4 @@
-# Perfect Personnel Placement (P^3)
+# Perfect Personnel Placement (P<sup>3</sup>) Backend
 
 ## Project Description
 
