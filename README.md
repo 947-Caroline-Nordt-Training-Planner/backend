@@ -73,5 +73,5 @@ https://app.swaggerhub.com/apis/Caroline-0947/Training-Planner/1.0.0
 * Dominick Wiley
 * Enrique Mendoza
 * Lindsay Read
-* Rogelio Victorio
+* Rogelio Victorio Jr.
 * Connor Smith
